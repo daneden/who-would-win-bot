@@ -10,3 +10,26 @@ generator client {
   provider = "prisma-client-js"
   previewFeatures = ["dataproxy", "referentialIntegrity"]
 }
+
+model Emoji {
+  id          Int      @id @default(autoincrement())
+  label       String   @unique
+  description String
+  reports FighterReport[]
+}
+
+model FighterReport {
+  id         Int  @id @default(autoincrement())
+  fighter    Emoji?  @relation(fields: [fighterId], references: [id])
+  fighterId Int
+  votes Int
+  fight Fight @relation(fields: [fightId], references: [id])
+  fightId String
+}
+
+model Fight {
+  id String @id
+  fighterReports FighterReport[]
+  createdAt DateTime @default(now())
+  tallied Boolean @default(false)
+}
