@@ -16,7 +16,6 @@ model Emoji {
   utf       String   @unique
   codepoint       String   @unique
   shortname String @unique
-  description String
   reports FighterReport[]
 }
 
