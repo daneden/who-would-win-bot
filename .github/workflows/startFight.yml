@@ -20,6 +20,7 @@ jobs:
 
       - name: Start a fight
         env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
           TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
           TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
           TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
