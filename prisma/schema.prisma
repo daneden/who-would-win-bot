@@ -1,6 +1,6 @@
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
   referentialIntegrity = "prisma"
 }
@@ -11,16 +11,16 @@ generator client {
 }
 
 model Emoji {
-  id          Int      @id @default(autoincrement())
-  utf       String
-  codepoint       String @unique
+  id Int @id @default(autoincrement())
+  utf String
+  codepoint String @unique
   shortname String
   reports FighterReport[]
 }
 
 model FighterReport {
-  id         Int  @id @default(autoincrement())
-  fighter    Emoji?  @relation(fields: [fighterId], references: [id])
+  id Int  @id @default(autoincrement())
+  fighter Emoji? @relation(fields: [fighterId], references: [id])
   fighterId Int
   votes Int
   fight Fight @relation(fields: [fightId], references: [id])
