@@ -1,0 +1,23 @@
+{
+  "name": "who-would-win-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/daneden/who-would-win-bot",
+  "author": "Daniel Eden <dan.eden@me.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^3.5.0",
+    "next": "^12.0.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "typescript": "^4.5.2"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.35"
+  }
+}
