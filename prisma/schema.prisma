@@ -13,7 +13,9 @@ generator client {
 
 model Emoji {
   id          Int      @id @default(autoincrement())
-  label       String   @unique
+  utf       String   @unique
+  codepoint       String   @unique
+  shortname String @unique
   description String
   reports FighterReport[]
 }
