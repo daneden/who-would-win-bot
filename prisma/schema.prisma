@@ -1,8 +1,7 @@
-// An empty Prisma Schema with no models, perfect as a starting point for your own schema.
-
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
   referentialIntegrity = "prisma"
 }
 
@@ -13,8 +12,8 @@ generator client {
 
 model Emoji {
   id          Int      @id @default(autoincrement())
-  utf       String   @unique
-  codepoint       String   @unique
+  utf       String
+  codepoint       String
   shortname String @unique
   reports FighterReport[]
 }
