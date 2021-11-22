@@ -21,8 +21,6 @@ async function tallyFights() {
         return candidate.shortname === shortname
       })
 
-      console.log("found emoji", emoji)
-
       return {
         fighterId: emoji.id,
         votes: result.votes,
