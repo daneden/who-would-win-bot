@@ -32,4 +32,5 @@ model Fight {
   fighterReports FighterReport[]
   createdAt DateTime @default(now())
   tallied Boolean @default(false)
+  victorId Int?
 }
