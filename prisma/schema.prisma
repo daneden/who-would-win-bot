@@ -16,6 +16,7 @@ model Emoji {
   codepoint String @unique
   shortname String
   reports FighterReport[]
+  fightsWon Fight[]
 }
 
 model FighterReport {
@@ -33,4 +34,5 @@ model Fight {
   createdAt DateTime @default(now())
   tallied Boolean @default(false)
   victorId Int?
+  victor Emoji? @relation(fields: [victorId], references: [id])
 }
