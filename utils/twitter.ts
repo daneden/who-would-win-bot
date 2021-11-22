@@ -46,6 +46,14 @@ interface CompetitionsResponse {
   }
 }
 
+interface CompetitionResponse {
+  data?: TweetWithPollAttachment
+  errors?: [ResponseError]
+  includes?: {
+    polls: PollAttachment
+  }
+}
+
 interface Competition {
   id: string
   options: PollOption[]
@@ -128,4 +136,15 @@ export async function postPoll({
   }
 
   return await client.post("tweets", body)
+}
+
+export async function getResultsForFight(id: string): Promise<PollOption[]> {
+  return await client
+    .get(`tweets/${id}`, {
+      expansions: "attachments.poll_ids",
+      "poll.fields": "options,voting_status",
+    })
+    .then((result: CompetitionResponse) => {
+      return result.includes?.polls[0].options as PollOption[]
+    })
 }

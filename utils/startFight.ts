@@ -27,4 +27,6 @@ async function startFight() {
     })
 }
 
-startFight()
+startFight().finally(async () => {
+  await prisma.$disconnect()
+})

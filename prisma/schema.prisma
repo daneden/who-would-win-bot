@@ -20,7 +20,7 @@ model Emoji {
 }
 
 model FighterReport {
-  id Int  @id @default(autoincrement())
+  id Int @id @default(autoincrement())
   fighter Emoji? @relation(fields: [fighterId], references: [id])
   fighterId Int
   votes Int

@@ -8,6 +8,7 @@
   "dependencies": {
     "@prisma/client": "^3.5.0",
     "next": "^12.0.4",
+    "prisma": "^3.5.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "twitter-v2": "git://github.com/nayutads/twitter-v2#1a4ade4da9ab8bd7c0d956c3ff60bb52c377b4bb",
@@ -18,8 +19,8 @@
     "build": "next build",
     "start": "next start",
     "fight:start": "npx tsm utils/startFight.ts",
-    "fight:record": "npx tsm utils/recordFights.ts",
-    "postinstall": "npx prisma generate"
+    "fight:tally": "npx tsm utils/tallyFights.ts",
+    "postinstall": "prisma generate"
   },
   "devDependencies": {
     "@types/react": "^17.0.35",
