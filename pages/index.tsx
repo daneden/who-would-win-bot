@@ -51,6 +51,10 @@ export default function HomePage({
           is a Twitter bot that posts daily polls pitting emoji head-to-head to
           let people vote on which one would win in a fight.
         </p>
+        <p>
+          Leaderboards are updated every 8 hours, as often as new competitions
+          begin.
+        </p>
         <table>
           <thead>
             <tr>
