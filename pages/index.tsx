@@ -60,15 +60,15 @@ export default function HomePage({
             <tr>
               <th>Rank</th>
               <th>Emoji</th>
-              <th>Wins</th>
-              <th>Losses</th>
-              <th>Ties</th>
-              <th>
+              <th className="tar">Wins</th>
+              <th className="tar">Losses</th>
+              <th className="tar">Ties</th>
+              <th className="tar">
                 <abbr title="Winning percentage is calculated as the percentage of all games played won by a given emoji">
                   Win %
                 </abbr>
               </th>
-              <th>
+              <th className="tar">
                 <abbr title="The total number of votes per emoji across all games">
                   Votes
                 </abbr>
@@ -82,11 +82,13 @@ export default function HomePage({
                 <td>
                   {competitor.emoji} {competitor.label}
                 </td>
-                <td>{competitor.wins}</td>
-                <td>{competitor.losses}</td>
-                <td>{competitor.ties}</td>
-                <td>{(competitor.winningPercentage * 100).toFixed(2)}</td>
-                <td>{competitor.votes}</td>
+                <td className="tar">{competitor.wins}</td>
+                <td className="tar">{competitor.losses}</td>
+                <td className="tar">{competitor.ties}</td>
+                <td className="tar">
+                  {(competitor.winningPercentage * 100).toFixed(2)}
+                </td>
+                <td className="tar">{competitor.votes}</td>
               </tr>
             ))}
           </tbody>
@@ -185,6 +187,18 @@ export default function HomePage({
           text-decoration: underline;
           text-decoration-style: dashed;
           cursor: help;
+        }
+
+        .tar {
+          text-align: right;
+        }
+
+        .tal {
+          text-align: left;
+        }
+
+        .tac {
+          text-align: center;
         }
       `}</style>
     </>
