@@ -236,7 +236,7 @@ export async function getStaticProps() {
     )
   )
     .map((fighter) => {
-      const { wins, ties, gamesPlayed } = fighter
+      const { wins, ties } = fighter
       fighter.winningPercentage = (2 * wins + ties) / (2 * competitions.length)
 
       return fighter
