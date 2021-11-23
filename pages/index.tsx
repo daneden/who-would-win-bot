@@ -65,7 +65,12 @@ export default function HomePage({
               <th>Ties</th>
               <th>
                 <abbr title="Winning percentage is calculated as the percentage of all games played won by a given emoji">
-                  Winning %
+                  Win %
+                </abbr>
+              </th>
+              <th>
+                <abbr title="The total number of votes per emoji across all games">
+                  Votes
                 </abbr>
               </th>
             </tr>
@@ -81,6 +86,7 @@ export default function HomePage({
                 <td>{competitor.losses}</td>
                 <td>{competitor.ties}</td>
                 <td>{(competitor.winningPercentage * 100).toFixed(2)}</td>
+                <td>{competitor.votes}</td>
               </tr>
             ))}
           </tbody>
@@ -143,6 +149,10 @@ export default function HomePage({
 
         td {
           border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+        }
+
+        tbody tr:hover {
+          background-color: rgba(128, 128, 128, 0.1);
         }
       `}</style>
       <style jsx global>{`
