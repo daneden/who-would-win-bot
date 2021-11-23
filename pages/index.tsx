@@ -158,6 +158,8 @@ export default function HomePage({
         }
       `}</style>
       <style jsx global>{`
+        @import url("https://rsms.me/inter/inter.css");
+
         :root {
           --wash-color: #f2f2f2;
           --card-wash-color: #fff;
