@@ -141,7 +141,6 @@ export default function HomePage({
         td,
         th {
           padding: 0.25em 0.75em;
-          text-align: left;
         }
 
         th {
@@ -183,6 +182,10 @@ export default function HomePage({
 
         a {
           color: red;
+        }
+
+        th {
+          text-align: left;
         }
 
         abbr {
