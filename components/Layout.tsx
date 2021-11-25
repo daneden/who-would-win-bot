@@ -51,7 +51,6 @@ export default function Layout({ children }) {
           background-color: var(--wash-color);
           border-bottom: 2px solid;
           z-index: 1;
-          filter: drop-shadow(0 2px 0 var(--text-color));
           padding-top: 1rem;
         }
 
