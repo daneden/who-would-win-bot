@@ -1,12 +1,19 @@
 import { PrismaClient } from "@prisma/client"
 import Head from "next/head"
+import FightOverview from "../components/FightOverview"
 import Layout from "../components/Layout"
-import getLeaderboard, { EmojiWithVoteCount } from "../utils/getLeaderboard"
+import getLeaderboard, {
+  EmojiWithVoteCount,
+  FightDetails,
+  getLatestFights,
+} from "../utils/getLeaderboard"
 
 export default function HomePage({
   leaderboard,
+  recentFights,
 }: {
   leaderboard: EmojiWithVoteCount[]
+  recentFights?: FightDetails[]
 }) {
   return (
     <>
@@ -18,6 +25,14 @@ export default function HomePage({
         />
       </Head>
       <Layout>
+        {recentFights ? (
+          <details>
+            <summary>Latest Fight Results</summary>
+            {recentFights?.map((fight) => (
+              <FightOverview fight={fight} />
+            ))}
+          </details>
+        ) : null}
         <div className="table-container">
           <table>
             <thead>
@@ -80,6 +95,12 @@ export default function HomePage({
         table {
           width: var(--page-width);
         }
+
+        details {
+          padding: 0.5em 0.75em;
+          border-radius: 0.25em;
+          background-color: rgba(128, 128, 128, 0.1);
+        }
       `}</style>
     </>
   )
@@ -88,9 +109,10 @@ export default function HomePage({
 export async function getStaticProps() {
   const prisma = new PrismaClient()
   const leaderboard = await getLeaderboard(prisma)
+  const recentFights = await getLatestFights(prisma)
 
   return {
-    props: { leaderboard },
+    props: { leaderboard, recentFights },
     // Refresh at most every 8hrs, which is as often as new competitions happen
     // and are recorded
     revalidate: 60 * 60 * 8,

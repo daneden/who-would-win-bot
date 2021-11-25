@@ -19,6 +19,7 @@ export interface FightDetails {
   }[]
   id: string
   victor: Emoji
+  createdAt: string
 }
 
 const baseEmojiWithVoteCount: Omit<EmojiWithVoteCount, "label" | "emoji"> = {
@@ -112,6 +113,7 @@ export async function getLatestFights(
         select: { fighter: true, votes: true },
         orderBy: { votes: "desc" },
       },
+      createdAt: true,
       id: true,
       victor: true,
     },
@@ -124,5 +126,10 @@ export async function getLatestFights(
     },
   })
 
-  return competitions
+  return competitions.map((obj) => {
+    return {
+      ...obj,
+      createdAt: obj.createdAt.toLocaleString(),
+    }
+  })
 }
