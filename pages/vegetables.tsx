@@ -11,7 +11,7 @@ export async function getStaticProps() {
   const allFighters = await getLeaderboard(prisma)
   const leaderboard = allFighters.filter((fighter) => {
     const regex =
-      /(potato|carrot|onion|ear of corn|pumpkin|tomato|eggplant|pepper|avocado|cucumber|garlic|leafy green|broccoli|cabbage|cauliflower)/
+      /(mushroom|potato|carrot|onion|ear of corn|pumpkin|tomato|eggplant|pepper|avocado|cucumber|garlic|leafy green|broccoli|cabbage|cauliflower)/
     return regex.test(fighter.label)
   })
 
