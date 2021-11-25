@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client"
+import { Emoji, PrismaClient } from "@prisma/client"
 
 export interface EmojiWithVoteCount {
   emoji: string
@@ -9,6 +9,16 @@ export interface EmojiWithVoteCount {
   ties: number
   gamesPlayed: number
   winningPercentage: number
+  globalRanking: number
+}
+
+export interface FightDetails {
+  fighterReports: {
+    votes: number
+    fighter: Emoji
+  }[]
+  id: string
+  victor: Emoji
 }
 
 const baseEmojiWithVoteCount: Omit<EmojiWithVoteCount, "label" | "emoji"> = {
@@ -18,6 +28,7 @@ const baseEmojiWithVoteCount: Omit<EmojiWithVoteCount, "label" | "emoji"> = {
   winningPercentage: 0,
   votes: 0,
   ties: 0,
+  globalRanking: 0,
 }
 
 export default async function getLeaderboard(prisma: PrismaClient) {
@@ -81,6 +92,37 @@ export default async function getLeaderboard(prisma: PrismaClient) {
       return fighter
     })
     .sort((a, b) => b.winningPercentage - a.winningPercentage)
+    .map((fighter, index) => {
+      return {
+        ...fighter,
+        globalRanking: index + 1,
+      }
+    })
 
   return leaderboard
+}
+
+export async function getLatestFights(
+  prisma: PrismaClient,
+  limit: number = 3
+): Promise<FightDetails[]> {
+  const competitions = await prisma.fight.findMany({
+    select: {
+      fighterReports: {
+        select: { fighter: true, votes: true },
+        orderBy: { votes: "desc" },
+      },
+      id: true,
+      victor: true,
+    },
+    where: {
+      tallied: true,
+    },
+    take: limit,
+    orderBy: {
+      createdAt: "desc",
+    },
+  })
+
+  return competitions
 }

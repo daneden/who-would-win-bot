@@ -40,21 +40,32 @@ export default function HomePage({
               </tr>
             </thead>
             <tbody>
-              {leaderboard.map((competitor, index) => (
-                <tr key={competitor.label}>
-                  <td>{(index + 1).toString().padStart(4, "0")}</td>
-                  <td>
-                    {competitor.emoji} {competitor.label}
-                  </td>
-                  <td className="tar">{competitor.wins}</td>
-                  <td className="tar">{competitor.losses}</td>
-                  <td className="tar">{competitor.ties}</td>
-                  <td className="tar">
-                    {(competitor.winningPercentage * 100).toFixed(2)}
-                  </td>
-                  <td className="tar">{competitor.votes}</td>
-                </tr>
-              ))}
+              {leaderboard.map(
+                ({
+                  label,
+                  wins,
+                  losses,
+                  ties,
+                  winningPercentage,
+                  votes,
+                  globalRanking,
+                  emoji,
+                }) => (
+                  <tr key={label}>
+                    <td>{globalRanking.toString().padStart(4, "0")}</td>
+                    <td>
+                      {emoji} {label}
+                    </td>
+                    <td className="tar">{wins}</td>
+                    <td className="tar">{losses}</td>
+                    <td className="tar">{ties}</td>
+                    <td className="tar">
+                      {(winningPercentage * 100).toFixed(2)}
+                    </td>
+                    <td className="tar">{votes}</td>
+                  </tr>
+                )
+              )}
             </tbody>
           </table>
         </div>
