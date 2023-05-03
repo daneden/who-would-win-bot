@@ -1,3 +1,5 @@
+export const runtime = "edge"
+
 import { PrismaClient } from "@prisma/client"
 import startFight from "../../../utils/startFight"
 import tallyFights from "../../../utils/tallyFights"
