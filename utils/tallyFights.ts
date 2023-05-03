@@ -1,15 +1,12 @@
-import pkg from "@prisma/client"
+import { PrismaClient } from "@prisma/client"
 import { getResultsForFight } from "./twitter"
-const { PrismaClient } = pkg
 
-const prisma = new PrismaClient()
-
-async function tallyFights() {
+export default async function tallyFights(prisma: PrismaClient) {
   const allEmoji = await prisma.emoji.findMany()
 
   const twentyFourHoursAgo = new Date(Date.now() - 864e5)
   const fightsToTally = await prisma.fight.findMany({
-    where: { tallied: false, createdAt: { lte: twentyFourHoursAgo } },
+    where: { tallied: false, created_at: { lte: twentyFourHoursAgo } },
   })
 
   const reports = fightsToTally.map(async (fight) => {
@@ -22,9 +19,9 @@ async function tallyFights() {
       })
 
       return {
-        fighterId: emoji.id,
+        emoji_id: emoji.id,
         votes: result.votes,
-        fightId: fight.id,
+        fight_id: fight.id,
       }
     })
 
@@ -38,8 +35,8 @@ async function tallyFights() {
 
     return {
       id: fight.id,
-      fighterReports: resultsAsFighterReports,
-      victorId: victor?.fighterId,
+      fighter_reports: resultsAsFighterReports,
+      victor_id: victor?.emoji_id,
     }
   })
 
@@ -47,16 +44,8 @@ async function tallyFights() {
     const report = await _report
     await prisma.fight.update({
       where: { id: report.id },
-      data: { victorId: report.victorId, tallied: true },
+      data: { victor_id: report.victor_id, tallied: true },
     })
-    await prisma.fighterReport.createMany({ data: report.fighterReports })
+    await prisma.fighterReport.createMany({ data: report.fighter_reports })
   })
 }
-
-tallyFights()
-  .catch((e) => {
-    throw e
-  })
-  .finally(async () => {
-    await prisma.$disconnect()
-  })

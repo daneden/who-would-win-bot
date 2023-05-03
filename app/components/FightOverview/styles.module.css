@@ -1,0 +1,58 @@
+.root {
+  margin-block: 0.75em;
+}
+.root ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.root li {
+  position: relative;
+  padding: 0.25em 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.root li + li {
+  margin-top: 0.25em;
+}
+
+.root small {
+  opacity: 0.75;
+}
+
+.root li > *:not(.winner) {
+  z-index: 1;
+}
+
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(128, 128, 128, 0.15);
+  display: block;
+  height: 100%;
+  z-index: 0;
+  border-radius: 0.25em;
+}
+
+.winner {
+  font-weight: 500;
+}
+
+.winner .bg {
+  background-color: rgba(40, 128, 255, 0.3);
+}
+
+.root h3 {
+  font-size: 0.75em;
+  margin: 0;
+  font-weight: 400;
+}
+
+.root h3 a {
+  color: inherit;
+}

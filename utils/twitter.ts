@@ -1,8 +1,5 @@
 import { Emoji } from ".prisma/client"
-import dotenv from "dotenv"
 import Twitter, { RequestParameters } from "twitter-v2"
-
-dotenv.config()
 
 export interface PollOption {
   position: number
