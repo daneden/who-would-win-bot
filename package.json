@@ -19,13 +19,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "fight:start": "npx tsm utils/startFight.ts",
-    "fight:tally": "npx tsm utils/tallyFights.ts",
     "postinstall": "prisma generate"
   },
   "devDependencies": {
     "@types/node": "18.16.3",
-    "@types/react": "^17.0.35",
-    "dotenv": "^10.0.0"
+    "@types/react": "^17.0.35"
   }
 }
