@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import Header from "./components/Header"
 import "./global.css"
 
 export const metadata = {
@@ -9,5 +10,12 @@ export const metadata = {
 }
 
 export default function Layout({ children }: { children: ReactNode }) {
-  return <html>{children}</html>
+  return (
+    <html>
+      <main>
+        <Header />
+        {children}
+      </main>
+    </html>
+  )
 }

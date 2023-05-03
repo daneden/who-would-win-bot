@@ -3,7 +3,6 @@ export const dynamic = "force-dynamic"
 import { PrismaClient } from "@prisma/client"
 import getLeaderboard, { getLatestFights } from "../utils/getLeaderboard"
 import FightOverview from "./components/FightOverview"
-import Layout from "./components/Layout"
 import styles from "./home.module.css"
 
 const prisma = new PrismaClient()
@@ -13,7 +12,7 @@ export default async function HomePage() {
   const recentFights = await getLatestFights(prisma)
 
   return (
-    <Layout>
+    <>
       {recentFights ? (
         <details>
           <summary>Latest Fight Results</summary>
@@ -73,6 +72,6 @@ export default async function HomePage() {
           </tbody>
         </table>
       </div>
-    </Layout>
+    </>
   )
 }
