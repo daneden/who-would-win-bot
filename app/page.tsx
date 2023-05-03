@@ -17,7 +17,7 @@ export default async function HomePage() {
         <details>
           <summary>Latest Fight Results</summary>
           {recentFights?.map((fight) => (
-            <FightOverview fight={fight} />
+            <FightOverview key={fight.id} fight={fight} />
           ))}
         </details>
       ) : null}

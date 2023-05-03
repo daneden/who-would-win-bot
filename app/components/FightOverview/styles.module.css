@@ -27,7 +27,7 @@
   z-index: 1;
 }
 
-.root .bg {
+.bg {
   position: absolute;
   top: 0;
   left: 0;
@@ -39,11 +39,11 @@
   border-radius: 0.25em;
 }
 
-.root .winner {
+.winner {
   font-weight: 500;
 }
 
-.root .winner .bg {
+.winner .bg {
   background-color: rgba(40, 128, 255, 0.3);
 }
 

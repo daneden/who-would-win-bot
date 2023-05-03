@@ -27,10 +27,12 @@ export default function FightOverview({
           {fighter_reports.map((report) => (
             <li
               key={report.fighter.id}
-              className={report.votes === maxVotes ? "winner" : "loser"}
+              className={
+                report.votes === maxVotes ? styles.winner : styles.loser
+              }
             >
               <span
-                className={`bg`}
+                className={styles.bg}
                 style={{ width: `${(report.votes / totalVotes) * 100}%` }}
               />
               <span>
