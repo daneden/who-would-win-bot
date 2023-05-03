@@ -8,6 +8,6 @@ export const metadata = {
   },
 }
 
-export default function HomePage({ children }: { children: ReactNode }) {
+export default function Layout({ children }: { children: ReactNode }) {
   return <html>{children}</html>
 }

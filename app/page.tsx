@@ -1,11 +1,14 @@
+export const dynamic = "force-dynamic"
+
 import { PrismaClient } from "@prisma/client"
-import FightOverview from "../components/FightOverview"
 import getLeaderboard, { getLatestFights } from "../utils/getLeaderboard"
+import FightOverview from "./components/FightOverview"
+import Layout from "./components/Layout"
 import styles from "./home.module.css"
-import Layout from "./layout"
+
+const prisma = new PrismaClient()
 
 export default async function HomePage() {
-  const prisma = new PrismaClient()
   const leaderboard = await getLeaderboard(prisma)
   const recentFights = await getLatestFights(prisma)
 

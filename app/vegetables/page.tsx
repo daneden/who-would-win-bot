@@ -1,7 +1,9 @@
+export const dynamic = "force-dynamic"
+
 import { PrismaClient } from "@prisma/client"
 import getLeaderboard from "../../utils/getLeaderboard"
+import Layout from "../components/Layout"
 import styles from "../home.module.css"
-import Layout from "../layout"
 
 const prisma = new PrismaClient()
 
