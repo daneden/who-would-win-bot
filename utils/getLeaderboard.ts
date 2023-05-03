@@ -13,13 +13,13 @@ export interface EmojiWithVoteCount {
 }
 
 export interface FightDetails {
-  fighterReports: {
+  fighter_reports: {
     votes: number
     fighter: Emoji
   }[]
   id: string
   victor: Emoji
-  createdAt: string
+  created_at: string
 }
 
 const baseEmojiWithVoteCount: Omit<EmojiWithVoteCount, "label" | "emoji"> = {
@@ -35,7 +35,7 @@ const baseEmojiWithVoteCount: Omit<EmojiWithVoteCount, "label" | "emoji"> = {
 export default async function getLeaderboard(prisma: PrismaClient) {
   const competitions = await prisma.fight.findMany({
     select: {
-      fighterReports: { select: { fighter: true, votes: true } },
+      fighter_reports: { select: { fighter: true, votes: true } },
       id: true,
       victor: true,
     },
@@ -47,7 +47,7 @@ export default async function getLeaderboard(prisma: PrismaClient) {
   const leaderboard: EmojiWithVoteCount[] = Object.values(
     competitions.reduce<{ [key: string]: EmojiWithVoteCount }>(
       (leaderboard, poll) => {
-        const [winner, loser] = poll.fighterReports.sort(
+        const [winner, loser] = poll.fighter_reports.sort(
           (a, b) => b.votes - a.votes
         )
 
@@ -109,11 +109,11 @@ export async function getLatestFights(
 ): Promise<FightDetails[]> {
   const competitions = await prisma.fight.findMany({
     select: {
-      fighterReports: {
+      fighter_reports: {
         select: { fighter: true, votes: true },
         orderBy: { votes: "desc" },
       },
-      createdAt: true,
+      created_at: true,
       id: true,
       victor: true,
     },
@@ -122,14 +122,14 @@ export async function getLatestFights(
     },
     take: limit,
     orderBy: {
-      createdAt: "desc",
+      created_at: "desc",
     },
   })
 
   return competitions.map((obj) => {
     return {
       ...obj,
-      createdAt: obj.createdAt.toLocaleString(),
+      created_at: obj.created_at.toLocaleString(),
     }
   })
 }

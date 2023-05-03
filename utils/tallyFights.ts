@@ -9,7 +9,7 @@ async function tallyFights() {
 
   const twentyFourHoursAgo = new Date(Date.now() - 864e5)
   const fightsToTally = await prisma.fight.findMany({
-    where: { tallied: false, createdAt: { lte: twentyFourHoursAgo } },
+    where: { tallied: false, created_at: { lte: twentyFourHoursAgo } },
   })
 
   const reports = fightsToTally.map(async (fight) => {
@@ -38,7 +38,7 @@ async function tallyFights() {
 
     return {
       id: fight.id,
-      fighterReports: resultsAsFighterReports,
+      fighter_reports: resultsAsFighterReports,
       victorId: victor?.fighterId,
     }
   })
@@ -49,7 +49,7 @@ async function tallyFights() {
       where: { id: report.id },
       data: { victorId: report.victorId, tallied: true },
     })
-    await prisma.fighterReport.createMany({ data: report.fighterReports })
+    await prisma.fighterReport.createMany({ data: report.fighter_reports })
   })
 }
 
