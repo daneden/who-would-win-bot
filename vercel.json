@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/cron",
+      "path": "/api/tally-and-start-fight",
       "schedule": "0 0 * * *"
     }
   ]
