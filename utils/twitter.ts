@@ -1,8 +1,5 @@
 import { Emoji } from ".prisma/client"
-import dotenv from "dotenv"
 import Twitter, { RequestParameters } from "twitter-v2"
-
-dotenv.config()
 
 export interface PollOption {
   position: number
@@ -65,12 +62,21 @@ interface Competition {
 // @ts-ignore
 const userId = 1066469679542071296n
 
-const client = new Twitter({
-  consumer_key: process.env.TWITTER_CONSUMER_KEY,
-  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-  access_token_key: process.env.TWITTER_ACCESS_KEY,
-  access_token_secret: process.env.TWITTER_ACCESS_SECRET,
-})
+let client: Twitter | undefined
+
+// Created on first use: `next build` imports this module while collecting page
+// data, and the constructor throws if the credentials aren't set.
+function getClient(): Twitter {
+  if (client === undefined) {
+    client = new Twitter({
+      consumer_key: process.env.TWITTER_CONSUMER_KEY,
+      consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+      access_token_key: process.env.TWITTER_ACCESS_KEY,
+      access_token_secret: process.env.TWITTER_ACCESS_SECRET,
+    })
+  }
+  return client
+}
 
 export async function getCompetitions(
   paginationToken?: string
@@ -85,7 +91,7 @@ export async function getCompetitions(
     options.pagination_token = paginationToken
   }
 
-  return await client
+  return await getClient()
     .get(`users/${userId}/tweets`, options)
     .then(async (response: CompetitionsResponse) => {
       if (
@@ -135,11 +141,11 @@ export async function postPoll({
     },
   }
 
-  return await client.post("tweets", body)
+  return await getClient().post("tweets", body)
 }
 
 export async function getResultsForFight(id: string): Promise<PollOption[]> {
-  return await client
+  return await getClient()
     .get(`tweets/${id}`, {
       expansions: "attachments.poll_ids",
       "poll.fields": "options,voting_status",

@@ -6,24 +6,23 @@
   "author": "Daniel Eden <dan.eden@me.com>",
   "license": "MIT",
   "dependencies": {
-    "@prisma/client": "^3.5.0",
-    "next": "^12.0.5",
-    "prisma": "^3.5.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "twitter-v2": "git://github.com/nayutads/twitter-v2#1a4ade4da9ab8bd7c0d956c3ff60bb52c377b4bb",
-    "typescript": "^4.5.2"
+    "@prisma/client": "^4.13.0",
+    "@vercel/postgres": "^0.1.3",
+    "next": "^13.3.4",
+    "prisma": "^4.13.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "twitter-v2": "^1.1.0",
+    "typescript": "^5.0.4"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "fight:start": "npx tsm utils/startFight.ts",
-    "fight:tally": "npx tsm utils/tallyFights.ts",
     "postinstall": "prisma generate"
   },
   "devDependencies": {
-    "@types/react": "^17.0.35",
-    "dotenv": "^10.0.0"
+    "@types/node": "18.16.3",
+    "@types/react": "^17.0.35"
   }
 }

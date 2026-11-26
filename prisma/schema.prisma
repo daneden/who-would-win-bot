@@ -1,13 +1,13 @@
-datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
-  referentialIntegrity = "prisma"
-}
-
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["dataproxy", "referentialIntegrity"]
+  previewFeatures = ["jsonProtocol"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
 }
 
 model Emoji {
@@ -16,23 +16,23 @@ model Emoji {
   codepoint String @unique
   shortname String
   reports FighterReport[]
-  fightsWon Fight[]
+  fights_won Fight[]
 }
 
 model FighterReport {
   id Int @id @default(autoincrement())
-  fighter Emoji? @relation(fields: [fighterId], references: [id])
-  fighterId Int
+  fighter Emoji? @relation(fields: [emoji_id], references: [id])
+  emoji_id Int
   votes Int
-  fight Fight @relation(fields: [fightId], references: [id])
-  fightId String
+  fight Fight @relation(fields: [fight_id], references: [id])
+  fight_id String
 }
 
 model Fight {
   id String @id
-  fighterReports FighterReport[]
-  createdAt DateTime @default(now())
+  fighter_reports FighterReport[]
+  created_at DateTime @default(now())
   tallied Boolean @default(false)
-  victorId Int?
-  victor Emoji? @relation(fields: [victorId], references: [id])
+  victor_id Int?
+  victor Emoji? @relation(fields: [victor_id], references: [id])
 }

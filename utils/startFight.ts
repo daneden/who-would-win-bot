@@ -1,14 +1,10 @@
-import pkg from "@prisma/client"
+import { PrismaClient } from "@prisma/client"
 import { postPoll } from "./twitter"
-
-const { PrismaClient } = pkg
-
-const prisma = new PrismaClient()
 
 const pickRandom = <T>(set: T[]): T =>
   set[Math.floor(Math.random() * set.length)]
 
-async function startFight() {
+export default async function startFight(prisma: PrismaClient) {
   const allEmoji = await prisma.emoji.findMany()
 
   let fighterA = pickRandom(allEmoji)
@@ -26,7 +22,3 @@ async function startFight() {
       throw e
     })
 }
-
-startFight().finally(async () => {
-  await prisma.$disconnect()
-})

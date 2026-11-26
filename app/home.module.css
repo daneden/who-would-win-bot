@@ -1,0 +1,9 @@
+.table-container {
+  width: 100%;
+  overflow-x: scroll;
+  position: relative;
+}
+
+.table-container table {
+  width: var(--page-width);
+}
